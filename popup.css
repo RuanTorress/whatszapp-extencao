@@ -55,10 +55,22 @@ body {
     border-radius: 0 0 18px 18px;
     box-shadow: 0 2px 8px rgba(7,94,84,0.08);
 }
+.logo-link {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
 .logo {
     width: 40px;
     height: 40px;
-    margin-right: 16px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(37,211,102,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.logo-link:hover .logo {
+    transform: scale(1.12) rotate(-8deg);
+    box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+    border: 2px solid #25d366;
 }
 .title-group {
     display: flex;
