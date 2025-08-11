@@ -1,47 +1,60 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp-Plus</title>
+    <title>WhatsApp-Web-Plus</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<div class="container">
-    <header class="header">
-        <h1>WhatsApp-Plus</h1>
-        <p class="tagline">Recursos avançados para o seu WhatsApp Web</p>
-    </header>
+        <div id="main">
+            <header class="header">
+                <img src="icons/icon48.png" alt="Logo" class="logo">
+                <div class="title-group">
+                    <h1>WhatsApp-Web-Plus</h1>
+                    <span class="subtitle">Extensão Profissional para WhatsApp Web</span>
+                </div>
+            </header>
 
-    <main class="content">
-        <p>Ative ou desative funções extras para turbinar sua experiência no WhatsApp Web.</p>
-        <br>
-        <!-- Agendamento de Mensagens -->
-        <div class="schedule-container">
-            <h2>Agendar Mensagem</h2>
-            <form id="scheduleForm">
-                <input type="text" id="destinatario" name="destinatario" placeholder="Nome do contato ou grupo" required style="width:90%;margin-bottom:8px;">
-                <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem" required style="width:90%;height:60px;margin-bottom:8px;"></textarea><br>
-                <label for="data">Data:</label>
-                <input type="date" id="data" name="data" required>
-                <label for="hora">Hora:</label>
-                <input type="time" id="hora" name="hora" required>
-                <button type="submit" style="margin-top:10px;padding:6px 18px;background:#007bff;color:#fff;border:none;border-radius:6px;cursor:pointer;">Agendar</button>
-            </form>
-            <div id="agendamentos"></div>
-        </div>
-        <br>
-        <!-- Settings Section -->
-        <div class="settings-container" id="settings_section">
-            <h2>Recursos</h2>
-            <br>
-        </div>
-    </main>
+            <section class="card card-agendar">
+                <h2><span class="material-icons">schedule</span> Agendar Mensagem</h2>
+                <form id="scheduleForm">
+                    <input type="text" id="destinatario" name="destinatario" placeholder="Nome do contato ou grupo" required>
+                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem" required></textarea>
+                    <div class="row">
+                        <div>
+                            <label for="data">Data:</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                        <div>
+                            <label for="hora">Hora:</label>
+                            <input type="time" id="hora" name="hora" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-agendar">Agendar</button>
+                </form>
+                <div id="agendamentos"></div>
+            </section>
 
-    <footer class="footer">
-        <p>© 2025 WhatsApp-Plus | Criado por Dev: Ruan Torres</p>
-    </footer>
-</div>
-<script src="popup.js"></script>
+            <section class="card card-recursos">
+                <h2><span class="material-icons">settings</span> Recursos</h2>
+                <div class="settings-container" id="settings_section"></div>
+            </section>
+
+                    <footer class="footer">
+                        <div class="footer-content">
+                            <span>© 2025 WhatsApp-Plus</span>
+                            <span class="footer-autor">
+                                Criado por <b>Ruan Torres</b>
+                                <a href="https://github.com/RuanTorress" target="_blank" title="GitHub"><span class="material-icons">code</span></a>
+                                <a href="https://www.linkedin.com/in/ruanfabio59/" target="_blank" title="LinkedIn"><span class="material-icons">business_center</span></a>
+                                <a href="https://www.instagram.com/ruanfabio59/?igsh=YjE3OTVuNTFwbmxz&utm_source=qr" target="_blank" title="Instagram"><span class="material-icons">photo_camera</span></a>
+                            </span>
+                        </div>
+                    </footer>
+        </div>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="popup.js"></script>
 </body>
 </html>

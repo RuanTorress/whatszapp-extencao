@@ -1,3 +1,4 @@
+// ...existing code...
 const settings_toggles = {
     'view_once_media': {
         title: 'Visualizar mídia mais de uma vez',

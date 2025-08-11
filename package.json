@@ -5,6 +5,8 @@
   "main": "background.js",
   "scripts": {
     "build": "grunt",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write .",
     "release": "gulp"
   },
   "repository": {
