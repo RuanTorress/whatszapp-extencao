@@ -1,0 +1,50 @@
+{
+  "name": "whatsapp-web-plus",
+  "version": "1.0.0",
+  "description": "Extensão para Chrome que adiciona recursos avançados ao WhatsApp Web: privacidade, produtividade, agendamento de mensagens e muito mais.",
+  "main": "background.js",
+  "scripts": {
+    "build": "grunt",
+    "release": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RuanTorress/WhatsApp-Web-Plus.git"
+  },
+  "author": "Ruan Fabio Cavalcante Carvalho Torres <ruanfabio59@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RuanTorress/WhatsApp-Web-Plus/issues"
+  },
+  "homepage": "https://github.com/RuanTorress/WhatsApp-Web-Plus#readme",
+  "keywords": [
+    "whatsapp",
+    "chrome-extension",
+    "web",
+    "plus",
+    "mensagens",
+    "agendamento",
+    "privacidade",
+    "produtividade"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/RuanTorress"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "del": "^8.0.0",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-concat": "^2.1.0",
+    "gulp": "^5.0.0",
+    "gulp-zip": "^6.0.0",
+    "typescript-eslint": "^8.11.0",
+    "@microsoft/eslint-formatter-sarif": "^3.1.0"
+  }
+}
