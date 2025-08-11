@@ -1,7 +1,8 @@
+
 class HookReceipts extends Hook {
     constructor() {
         super();
-        this.original_function = null;
+        this.original_delete_function = null;
     }
 
     register() {
@@ -9,24 +10,23 @@ class HookReceipts extends Hook {
             return;
         }
         super.register();
-        this.original_function = MODULES.HANDLE_RECEIPT.handleChatSimpleReceipt;
-        const original_function = this.original_function;
-        MODULES.HANDLE_RECEIPT.handleChatSimpleReceipt = function (receipt) {
-            if (receipt?.from?.server === 'c.us' && receipt?.ack === MODULES.WEB_ACK.ACK.READ) {
-                const msg_keys = [];
-                for (const msg of receipt.externalIds) {
-                    msg_keys.push(`true_${receipt.from._serialized}_${msg}`);
+
+        // Intercepta o método de remoção de mensagens
+        if (window.Store && window.Store.Msg && window.Store.Msg.remove) {
+            this.original_delete_function = window.Store.Msg.remove;
+            const original_delete = this.original_delete_function;
+
+            window.Store.Msg.remove = function (msg) {
+                // Bloqueia remoção se for "revogada" (apagada para todos)
+                if (msg && msg.isRevoked) {
+                    // Apenas loga, não remove
+                    console.info('[WhatsApp-Web-Plus] Bloqueada remoção de mensagem apagada:', msg);
+                    return false;
                 }
-                MODULES.RECEIPT_BATCHER.receiptBatcher.acceptOtherReceipt({
-                    ack: MODULES.WEB_ACK.ACK.READ,
-                    ts: receipt.ts,
-                    receiverId: receipt.from,
-                    msgKeys: msg_keys,
-                    isSender: false
-                });
-            }
-            return original_function(...arguments);
-        };
+                // Permite remoção normal para outras mensagens
+                return original_delete.apply(this, arguments);
+            };
+        }
     }
 
     unregister() {
@@ -34,6 +34,8 @@ class HookReceipts extends Hook {
             return;
         }
         super.unregister();
-        MODULES.HANDLE_RECEIPT.handleChatSimpleReceipt = this.original_function;
+        if (window.Store && window.Store.Msg && this.original_delete_function) {
+            window.Store.Msg.remove = this.original_delete_function;
+        }
     }
 }

@@ -6,7 +6,7 @@ const settings_toggles = {
     },
     'keep_revoked_messages': {
         title: 'Manter mensagens apagadas',
-        desc: 'Exibe mensagens que foram apagadas pelo remetente.'
+        desc: 'Impede que mensagens apagadas desapareçam do chat.'
     },
     'keep_edited_messages': {
         title: 'Manter mensagens editadas',
@@ -21,8 +21,8 @@ const settings_toggles = {
         desc: 'Permite marcar todos ou apenas administradores em grupos.'
     },
     'blue_ticks': {
-        title: 'Ver ticks azuis sem enviar',
-        desc: 'Permite ver confirmação de leitura sem enviar ticks azuis.'
+        title: 'Ver mensagens sem enviar ticks azuis',
+        desc: 'Bloqueia o envio de recibos de leitura e reprodução.'
     },
     'fullscreen': {
         title: 'Modo tela cheia',
@@ -55,7 +55,7 @@ const add_setting_toggle = (setting_key, obj) => {
     input.setAttribute('id', setting_key);
     input.setAttribute('title', obj.desc); // tooltip
     input.addEventListener('change', on_toggle);
-    input.checked = active_settings[setting_key];
+    input.checked = !!active_settings[setting_key];
     toggle_switch.appendChild(input);
 
     const toggle_label = document.createElement('label');
@@ -68,13 +68,12 @@ const add_setting_toggle = (setting_key, obj) => {
     return item;
 };
 
-
-
 // --- Agendamento de Mensagens ---
 const scheduleForm = document.getElementById('scheduleForm');
 const agendamentosDiv = document.getElementById('agendamentos');
 
 function renderAgendamentos(agendamentos) {
+    if (!agendamentosDiv) return;
     agendamentosDiv.innerHTML = '';
     if (!agendamentos || agendamentos.length === 0) {
         agendamentosDiv.innerHTML = '<p style="color:#888">Nenhum agendamento.</p>';
@@ -83,7 +82,7 @@ function renderAgendamentos(agendamentos) {
     agendamentos.forEach((ag, idx) => {
         const item = document.createElement('div');
         item.className = 'agendamento-item';
-        item.innerHTML = `<b>${ag.destinatario}</b> - ${ag.mensagem}<br><span style='font-size:13px;color:#555'>${ag.data} ${ag.hora}</span> <button data-idx='${idx}' style='margin-left:8px;color:#fff;background:#dc3545;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;'>Remover</button>`;
+        item.innerHTML = `<div><b>${ag.destinatario}</b> - ${ag.mensagem}<br><span style='font-size:13px;color:#555'>${ag.data} ${ag.hora}</span></div><div><button data-idx='${idx}' title="Remover">Remover</button></div>`;
         agendamentosDiv.appendChild(item);
     });
     // Remover agendamento
@@ -91,7 +90,7 @@ function renderAgendamentos(agendamentos) {
         btn.onclick = function() {
             chrome.storage.sync.get('agendamentos').then(data => {
                 let ags = data.agendamentos || [];
-                ags.splice(parseInt(btn.dataset.idx), 1);
+                ags.splice(parseInt(btn.dataset.idx, 10), 1);
                 chrome.storage.sync.set({agendamentos: ags}, () => renderAgendamentos(ags));
             });
         };
@@ -99,7 +98,7 @@ function renderAgendamentos(agendamentos) {
 }
 
 chrome.storage.sync.get('agendamentos').then(data => {
-    renderAgendamentos(data.agendamentos || []);
+    renderAgendamentos(data?.agendamentos || []);
 });
 
 if (scheduleForm) {
@@ -111,7 +110,7 @@ if (scheduleForm) {
         const hora = scheduleForm.hora.value;
         if (!destinatario || !mensagem || !data || !hora) return;
         chrome.storage.sync.get('agendamentos').then(store => {
-            let ags = store.agendamentos || [];
+            let ags = store?.agendamentos || [];
             ags.push({ destinatario, mensagem, data, hora });
             chrome.storage.sync.set({agendamentos: ags}, () => {
                 renderAgendamentos(ags);
@@ -124,7 +123,7 @@ if (scheduleForm) {
 // --- Configurações ---
 const settings_section = document.getElementById('settings_section');
 chrome.storage.sync.get('settings').then(data => {
-    active_settings = data.settings;
+    active_settings = data?.settings || active_settings;
     for (const [setting_key, obj] of Object.entries(settings_toggles)) {
         const item = add_setting_toggle(setting_key, obj);
         settings_section.appendChild(item);

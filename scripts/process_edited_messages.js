@@ -13,7 +13,6 @@ class EditMessageHook extends Hook {
         const original_function = this.original_function;
         MODULES.PROCESS_EDIT_MESSAGE.processEditProtocolMsgs = function () {
             arguments[0] = arguments[0].filter((message) => {
-                console.log(message);
                 return !EditMessageHook.handle_edited_message(message, ...arguments);
             });
 
@@ -34,7 +33,7 @@ class EditMessageHook extends Hook {
     static handle_edited_message() {
         const message = arguments[0];
         message.type = 'chat';
-        message.body = `✏️ This message was edited to: ${message?.body || message?.caption}`;
+        message.body = `✏️ Mensagem editada: ${message?.body || message?.caption || ''}`;
         if (!message.protocolMessageKey) {
             return true;
         }
@@ -66,4 +65,5 @@ class EditMessageHook extends Hook {
         );
         return true;
     }
+
 }

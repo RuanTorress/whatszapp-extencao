@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,55 +7,64 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-        <div id="main">
-            <header class="header">
-                        <a href="https://web.whatsapp.com/" target="_blank" class="logo-link" title="Abrir WhatsApp Web">
-                            <img src="icons/icon48.png" alt="Logo WhatsApp" class="logo">
-                        </a>
-                <div class="title-group">
-                    <h1>WhatsApp-Web-Plus</h1>
-                    <span class="subtitle">Extensão Profissional para WhatsApp Web</span>
-                </div>
-            </header>
+    <div id="main">
+        <header class="header">
+            <a href="https://web.whatsapp.com/" target="_blank" class="logo-link" title="Abrir WhatsApp Web">
+                <img src="icons/icon48.png" alt="Logo WhatsApp" class="logo">
+            </a>
+            <div class="title-group">
+                <h1>WhatsApp-Web-Plus</h1>
+                <span class="subtitle">Extensão Profissional para WhatsApp Web</span>
+            </div>
+        </header>
 
-            <section class="card card-agendar">
-                <h2><span class="material-icons">schedule</span> Agendar Mensagem</h2>
-                <form id="scheduleForm">
-                    <input type="text" id="destinatario" name="destinatario" placeholder="Nome do contato ou grupo" required>
-                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem" required></textarea>
-                    <div class="row">
-                        <div>
-                            <label for="data">Data:</label>
-                            <input type="date" id="data" name="data" required>
-                        </div>
-                        <div>
-                            <label for="hora">Hora:</label>
-                            <input type="time" id="hora" name="hora" required>
-                        </div>
+        <!-- Bloco de Agendamento -->
+        <section class="card">
+            <h2><span class="material-icons">schedule</span> Agendar Mensagens</h2>
+            <form id="scheduleForm">
+                <div class="row">
+                    <div>
+                        <label for="destinatario" style="font-size:13px;color:#555;margin-bottom:4px;">Destinatário (nome exato)</label>
+                        <input type="text" id="destinatario" name="destinatario" placeholder="Contato/Grupo" required>
                     </div>
-                    <button type="submit" class="btn-agendar">Agendar</button>
-                </form>
-                <div id="agendamentos"></div>
-            </section>
+                </div>
+                <div>
+                    <label for="mensagem" style="font-size:13px;color:#555;margin-bottom:4px;">Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem..." required></textarea>
+                </div>
+                <div class="row">
+                    <div>
+                        <label for="data" style="font-size:13px;color:#555;margin-bottom:4px;">Data</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+                    <div>
+                        <label for="hora" style="font-size:13px;color:#555;margin-bottom:4px;">Hora</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-agendar">Agendar</button>
+            </form>
+            <div id="agendamentos"></div>
+        </section>
 
-            <section class="card card-recursos">
-                <h2><span class="material-icons">settings</span> Recursos</h2>
-                <div class="settings-container" id="settings_section"></div>
-            </section>
+        <section class="card card-recursos">
+            <h2><span class="material-icons">settings</span> Recursos</h2>
+            <div class="settings-container" id="settings_section"></div>
+        </section>
 
-                    <footer class="footer">
-                        <div class="footer-content">
-                            <span>© 2025 WhatsApp-Plus</span>
-                            <span class="footer-autor">
-                                Criado por <b>Ruan Torres</b>
-                                <a href="https://github.com/RuanTorress" target="_blank" title="GitHub"><span class="material-icons">code</span></a>
-                                <a href="https://www.linkedin.com/in/ruanfabio59/" target="_blank" title="LinkedIn"><span class="material-icons">business_center</span></a>
-                                <a href="https://www.instagram.com/ruanfabio59/?igsh=YjE3OTVuNTFwbmxz&utm_source=qr" target="_blank" title="Instagram"><span class="material-icons">photo_camera</span></a>
-                            </span>
-                        </div>
-                    </footer>
-        </div>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="popup.js"></script>
+        <footer class="footer">
+            <div class="footer-content">
+                <span>© 2025 WhatsApp-Plus</span>
+                <span class="footer-autor">
+                    Criado por <b>Ruan Torres</b>
+                    <a href="https://github.com/RuanTorress" target="_blank" title="GitHub"><span class="material-icons">code</span></a>
+                    <a href="https://www.linkedin.com/in/ruanfabio59/" target="_blank" title="LinkedIn"><span class="material-icons">business_center</span></a>
+                    <a href="https://www.instagram.com/ruanfabio59/?igsh=YjE3OTVuNTFwbmxz&utm_source=qr" target="_blank" title="Instagram"><span class="material-icons">photo_camera</span></a>
+                </span>
+            </div>
+        </footer>
+    </div>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="popup.js"></script>
 </body>
 </html>

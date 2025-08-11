@@ -1,10 +1,10 @@
 const hooks = {
     view_once_media: new ProtobufHook(),
-    keep_revoked_messages: new RenderableMessageHook(),
+    keep_revoked_messages: new HookReceipts(), // impede remoção de mensagens revogadas
     keep_edited_messages: new EditMessageHook(),
     indicate_sender_os: new HookRendered(),
     special_tags: new HookSendMessage(),
-    blue_ticks: new HookReceipts(),
+    blue_ticks: new BlueTicksHook(), // novo hook para bloquear recibos de leitura
     fullscreen: new FullscreenHook(),
     settings_hook: new SettingsHook()
 };
@@ -21,7 +21,6 @@ function handle_settings_update() {
 
 let active_settings = {};
 
-
 window.addEventListener('message', function (event) {
     const message = event.data;
     if (message.settings !== undefined) {
@@ -29,7 +28,6 @@ window.addEventListener('message', function (event) {
         handle_settings_update();
     }
 });
-
 
 const start = () => {
     initialize_modules();
@@ -39,7 +37,6 @@ const start = () => {
         }
     }
 };
-
 
 console.log('WhatsApp-Plus loaded successfully!');
 // TODO: Solve it the right way. This is a temporary solution.

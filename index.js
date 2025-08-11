@@ -10,9 +10,17 @@ function handle_settings_update(settings) {
     window.postMessage({'settings': settings});
 }
 
+const DEFAULT_SETTINGS = {
+    view_once_media: true,
+    keep_revoked_messages: true,
+    keep_edited_messages: true,
+    indicate_sender_os: true,
+    special_tags: true,
+    blue_ticks: true,
+    fullscreen: true
+};
 
 inject_script('packed.js');
-
 
 chrome.storage.sync.onChanged.addListener(function (changes) {
     if (changes?.settings !== undefined) {
@@ -20,10 +28,13 @@ chrome.storage.sync.onChanged.addListener(function (changes) {
     }
 });
 
-
 setTimeout(function () {
     chrome.storage.sync.get('settings').then((data) => {
-        window.postMessage({'settings': data.settings});
+        const settings = data?.settings || DEFAULT_SETTINGS;
+        if (!data?.settings) {
+            chrome.storage.sync.set({settings});
+        }
+        window.postMessage({'settings': settings});
     });
 }, 2000);
 
@@ -88,3 +99,5 @@ function verificarAgendamentos() {
 }
 
 setInterval(verificarAgendamentos, 60000); // verifica a cada minuto
+
+// ...visualização única removida...
